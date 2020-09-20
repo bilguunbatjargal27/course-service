@@ -1,6 +1,6 @@
 package cs.mum.edu.orangeteam.compro.model;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
+
 
 import javax.persistence.*;
 import java.util.ArrayList;
