@@ -5,10 +5,13 @@ import cs.mum.edu.orangeteam.compro.model.Student;
 import cs.mum.edu.orangeteam.compro.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 
 @Service
+//
+@Transactional
 public class StudentServiceImpl implements StudentService {
 
     @Autowired
