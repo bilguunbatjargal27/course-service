@@ -1,6 +1,6 @@
 package cs.mum.edu.orangeteam.compro.model;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
+
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,8 +12,8 @@ import java.util.List;
 public class Course {
 
     @Id
-    @GeneratedValue
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)//
+    private Long id;
 
     private String title;
 
