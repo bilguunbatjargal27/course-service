@@ -1,6 +1,7 @@
 package cs.mum.edu.orangeteam.compro.controller;
 
 import cs.mum.edu.orangeteam.compro.model.Student;
+import cs.mum.edu.orangeteam.compro.service.CourseService;
 import cs.mum.edu.orangeteam.compro.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,33 +13,36 @@ import java.util.List;
 public class StudentController {
 
     @Autowired
-    private StudentService service;
-
+    private StudentService studentService;
 
     @GetMapping("")
     public List<Student> getAllStundets(){
-        return (List<Student>) service.findAll();
+        return (List<Student>) studentService.findAll();
     }
 
     @GetMapping("/{id}")
     public Student getStudentById(@PathVariable("id") Long id){
-        return service.findStudentById(id);
+        return studentService.findStudentById(id);
     }
 
 
     @PostMapping("/add")
     public Student addStudent(@RequestBody final Student student){
-        return service.addStudent(student);
+        return studentService.addStudent(student);
     }
 
-    @PutMapping("/update")
+    @PatchMapping("/update")
     public Student updateStudent(@RequestBody final Student student){
-        return service.updateStudent(student);
+        return studentService.updateStudent(student);
     }
 
     @DeleteMapping("/delete/{id}")
     public boolean deleteStudent(@PathVariable("id") Long id){
-        service.deleteStudent(id);
+        Student student = studentService.findStudentById(id);
+        if(student == null) return false;
+        studentService.deleteStudent(id);
         return true;
     }
+
+
 }
