@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("course/students")
@@ -23,6 +24,12 @@ public class StudentController {
     @GetMapping("/{id}")
     public Student getStudentById(@PathVariable("id") Long id){
         return studentService.findStudentById(id);
+    }
+
+
+    @GetMapping("/getNames")
+    public List<String> getStudentNames(){
+        return studentService.findAll().stream().map(Student::getName).collect(Collectors.toList());
     }
 
 
