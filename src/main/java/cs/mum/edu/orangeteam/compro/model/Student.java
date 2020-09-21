@@ -29,8 +29,8 @@ public class Student {
     @OneToMany(mappedBy = "student")
     private List<Attend> attends = new ArrayList<>();
 
-//    @OneToMany
-//    private List<Course> courses = new ArrayList<>();
+    @OneToMany
+    private List<Course> courses = new ArrayList<>();
 
 
     public Student() {
