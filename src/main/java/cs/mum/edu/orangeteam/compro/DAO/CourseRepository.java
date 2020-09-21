@@ -12,8 +12,8 @@ import java.util.List;
 public interface CourseRepository extends JpaRepository<Course, Long> {
 
     public List<Course> findByStudentId(Long id);
-    public List<Course> findByStudentIdAnAndEndDateBefore(Long id, Date date);
-    public List<Course> findByFacultyIdAAndStartDateAfter(Long id, Date now); // future
+    public List<Course> findByStudentIdAndEndDateBefore(Long id, Date date);
+    public List<Course> findByFacultyIdAndStartDateAfter(Long id, Date now); // future
     public List<Course> findByFacultyIdAndEndDateBefore(Long id, Date now); // past
     public List<Course> findByFacultyId(Long id); // future and past
 

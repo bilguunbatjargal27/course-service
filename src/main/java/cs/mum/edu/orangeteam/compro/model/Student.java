@@ -32,6 +32,8 @@ public class Student {
     @OneToMany(mappedBy = "student")
     private List<Course> courses = new ArrayList<>();
 
+    @Column(name = "tm_instructor")
+    private Long tmInstructor;
 
     public Student() {
     }

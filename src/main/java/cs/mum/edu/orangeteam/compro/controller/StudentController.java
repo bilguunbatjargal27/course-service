@@ -32,6 +32,10 @@ public class StudentController {
         return studentService.findAll().stream().map(Student::getName).collect(Collectors.toList());
     }
 
+    @GetMapping("/bytminstructor/{id}")
+    public List<Student> getByTmInstructor(@PathVariable("id") Long id){
+        return studentService.findByTmInstructor(id);
+    }
 
     @PostMapping("/add")
     public Student addStudent(@RequestBody final Student student){

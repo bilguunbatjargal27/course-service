@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.List;
 
 @Service
 @Transactional
@@ -17,9 +18,6 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     private StudentRepository studentRepository;
-
-    @Autowired
-    private CourseRepository courseRepository;
 
     @Override
     public Student addStudent(Student student) {
@@ -47,8 +45,9 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findAll();
     }
 
+
     @Override
-    public Collection<Course> findAllCourses() {
-        return courseRepository.findAll();
+    public List<Student> findByTmInstructor(Long id) {
+        return studentRepository.findByTmInstructor(id);
     }
 }

@@ -53,12 +53,12 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public List<Course> findCoursesAlreadyTakenWithStudent(Long id, Date date) {
-        return repository.findByStudentIdAnAndEndDateBefore(id,date);
+        return repository.findByStudentIdAndEndDateBefore(id,date);
     }
 
     @Override
     public List<Course> findCoursesFacultyWillTeach(Long id, Date now) {
-        return repository.findByFacultyIdAAndStartDateAfter(id, now);
+        return repository.findByFacultyIdAndStartDateAfter(id, now);
     }
 
     @Override
