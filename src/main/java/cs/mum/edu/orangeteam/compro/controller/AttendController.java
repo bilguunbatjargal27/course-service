@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("Attend/Attends/attend")
+@RequestMapping("course/attendances")
 public class AttendController {
 
     @Autowired
@@ -41,6 +41,4 @@ public class AttendController {
         attendService.deleteAttend(id);
         return true;
     }
-
-
 }

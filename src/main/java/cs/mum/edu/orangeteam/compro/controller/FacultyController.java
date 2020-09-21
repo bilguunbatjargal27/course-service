@@ -34,7 +34,9 @@ public class FacultyController {
 
     @DeleteMapping("/delete/{id}")
     public boolean deleteFaculty(@PathVariable("id") Long id){
-        facultyService.deleteFacultyById(id);
+        Faculty faculty = facultyService.findFacultyById(id);
+        if(faculty == null) return false;
+       facultyService.deleteFacultyById(id);
         return true;
     }
 }
