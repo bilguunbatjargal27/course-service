@@ -29,7 +29,7 @@ public class Student {
     @OneToMany(mappedBy = "student")
     private List<Attend> attends = new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(mappedBy = "student")
     private List<Course> courses = new ArrayList<>();
 
 

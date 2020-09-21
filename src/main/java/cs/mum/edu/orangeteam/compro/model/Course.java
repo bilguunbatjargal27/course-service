@@ -3,6 +3,8 @@ package cs.mum.edu.orangeteam.compro.model;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,12 +31,20 @@ public class Course {
 
     private boolean isTA;
 
+    @Min(value = 0)
+    @Max(value = 100)
+    private double grade;
+
     @ManyToOne
     @JoinColumn(name = "faculty_id")
     private Faculty faculty;
 
     @OneToMany(mappedBy = "course")
     private List<Attend> attends = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
 
     public Long getId() {
         return id;

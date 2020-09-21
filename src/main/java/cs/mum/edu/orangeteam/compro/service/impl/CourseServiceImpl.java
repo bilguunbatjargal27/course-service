@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
 @Service
 @Transactional
@@ -43,4 +45,30 @@ public class CourseServiceImpl implements CourseService {
     public Collection<Course> findAll() {
         return repository.findAll();
     }
+
+    @Override
+    public List<Course> findByStudent(Long id) {
+        return repository.findByStudentId(id);
+    }
+
+    @Override
+    public List<Course> findCoursesAlreadyTakenWithStudent(Long id, Date date) {
+        return repository.findByStudentIdAnAndEndDateBefore(id,date);
+    }
+
+    @Override
+    public List<Course> findCoursesFacultyWillTeach(Long id, Date now) {
+        return repository.findByFacultyIdAAndStartDateAfter(id, now);
+    }
+
+    @Override
+    public List<Course> findCoursesWithFacultyTaught(Long id, Date now) {
+        return repository.findByFacultyIdAndEndDateBefore(id, now);
+    }
+
+    @Override
+    public List<Course> findCoursesByFaculty(Long id) {
+        return repository.findByFacultyId(id);
+    }
+
 }
