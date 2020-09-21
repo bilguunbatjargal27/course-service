@@ -22,11 +22,17 @@ public class Student {
     private Date enrollmentDate;
 
     private double GPA;
-    
-    //
+
     @Embedded
     private Address address;
-    
+
+    @OneToMany(mappedBy = "student")
+    private List<Attend> attends = new ArrayList<>();
+
+//    @OneToMany
+//    private List<Course> courses = new ArrayList<>();
+
+
     public Student() {
     }
 

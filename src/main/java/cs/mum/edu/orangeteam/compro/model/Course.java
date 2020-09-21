@@ -30,14 +30,10 @@ public class Course {
     private boolean isTA;
 
     @ManyToOne
-    @JoinColumn(name = "student_id")
-    private Student student;
-
-    @ManyToOne
     @JoinColumn(name = "faculty_id")
     private Faculty faculty;
 
-    @OneToMany
+    @OneToMany(mappedBy = "course")
     private List<Attend> attends = new ArrayList<>();
 
     public Long getId() {
@@ -94,22 +90,6 @@ public class Course {
 
     public void setTA(boolean TA) {
         isTA = TA;
-    }
-
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
-    }
-
-    public Faculty getFaculty() {
-        return faculty;
-    }
-
-    public void setFaculty(Faculty faculty) {
-        this.faculty = faculty;
     }
 
     public List<Attend> getAttends() {
