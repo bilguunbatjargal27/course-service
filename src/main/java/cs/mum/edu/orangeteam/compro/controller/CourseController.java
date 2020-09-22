@@ -45,27 +45,22 @@ public class CourseController {
         return true;
     }
     @GetMapping("/faculty/{id}")
-    @ResponseBody
     public List<Course>getAllCoursesByFacultyId(@PathVariable Long id ){
     return courseService.findCoursesByFaculty(id);
     }
-    @GetMapping("/student/{id}")
-    @ResponseBody
+    @GetMapping("/student/{id}")    
     public List<Course>getAllCoursesByStudent(@PathVariable Long id ){
         return courseService.findByStudent(id);
     }
-    @GetMapping("/student/taken/{id,date}")
-    @ResponseBody
+    @GetMapping("/student/taken/{id}/{date}")
     public List<Course>getCoursesTakenByStudent(@PathVariable Long id ,@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date date){
         return courseService.findCoursesAlreadyTakenWithStudent(id, date);
     }
-    @GetMapping("/faculty/teach/{id,date}")
-    @ResponseBody
+    @GetMapping("/faculty/teach/{id}/{date}")
     public List<Course>getCoursesFacultyWillTeach(@PathVariable Long id ,@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date date){
         return courseService.findCoursesFacultyWillTeach(id, date);
     }
-    @GetMapping("/faculty/taught/{id,date}")
-    @ResponseBody
+    @GetMapping("/faculty/taught/{id}/{date}")
     public List<Course>getCoursesFacultyTaught(@PathVariable Long id ,@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date date){
         return courseService.findCoursesWithFacultyTaught(id, date);
     }
