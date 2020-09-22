@@ -26,15 +26,14 @@ public class StudentController {
         return studentService.findStudentById(id);
     }
 
-
-    @GetMapping("/getNames")
-    public List<String> getStudentNames(){
-        return studentService.findAll().stream().map(Student::getName).collect(Collectors.toList());
+    @GetMapping("/bytminstructor/{id}")
+    public List<Student> getStudentsByTmInstructor(@PathVariable("id") Long id){
+        return studentService.findByTmInstructor(id);
     }
 
-    @GetMapping("/bytminstructor/{id}")
-    public List<Student> getByTmInstructor(@PathVariable("id") Long id){
-        return studentService.findByTmInstructor(id);
+    @GetMapping("/byjob/{id}")
+    public List<Student> getStudentsbyJobId(@PathVariable("id") Long id){
+        return studentService.findByJobId(id);
     }
 
     @PostMapping("/add")

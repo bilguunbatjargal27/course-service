@@ -14,4 +14,5 @@ public interface StudentService {
     Student findStudentById(Long id);
     Collection<Student> findAll();
     List<Student> findByTmInstructor(Long id);
+    List<Student> findByJobId(Long id);
 }

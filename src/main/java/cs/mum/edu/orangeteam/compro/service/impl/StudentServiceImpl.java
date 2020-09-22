@@ -50,4 +50,9 @@ public class StudentServiceImpl implements StudentService {
     public List<Student> findByTmInstructor(Long id) {
         return studentRepository.findByTmInstructor(id);
     }
+
+    @Override
+    public List<Student> findByJobId(Long id) {
+        return studentRepository.findByJobId(id);
+    }
 }

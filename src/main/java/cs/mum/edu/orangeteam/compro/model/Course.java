@@ -31,6 +31,8 @@ public class Course {
 
     private boolean isTA;
 
+    private int courseAttendance;
+
     @Min(value = 0)
     @Max(value = 100)
     private double grade;

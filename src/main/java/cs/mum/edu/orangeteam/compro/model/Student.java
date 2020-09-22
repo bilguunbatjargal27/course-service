@@ -35,6 +35,12 @@ public class Student {
     @Column(name = "tm_instructor")
     private Long tmInstructor;
 
+    private boolean canJobSearch;
+
+    private Long jobId;
+
+
+
     public Student() {
     }
 
