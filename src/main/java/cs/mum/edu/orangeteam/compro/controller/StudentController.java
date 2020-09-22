@@ -1,11 +1,16 @@
 package cs.mum.edu.orangeteam.compro.controller;
 
+import com.netflix.ribbon.proxy.annotation.Http;
 import cs.mum.edu.orangeteam.compro.model.Student;
 import cs.mum.edu.orangeteam.compro.service.CourseService;
 import cs.mum.edu.orangeteam.compro.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,47 +22,59 @@ public class StudentController {
     private StudentService studentService;
 
     @GetMapping("")
-    public List<Student> getAllStundets(){
-        return (List<Student>) studentService.findAll();
+    public ResponseEntity<?> getAllStundets(){
+        List<Student> students = (List<Student>) studentService.findAll();
+        return ResponseEntity.ok(students);
     }
 
     @GetMapping("/{id}")
-    public Student getStudentById(@PathVariable("id") Long id){
-        return studentService.findStudentById(id);
+    public ResponseEntity<?> getStudentById(@PathVariable("id") Long id){
+        Student student = studentService.findStudentById(id);
+        return ResponseEntity.ok(student);
     }
 
     @GetMapping("/bytminstructor/{id}")
-    public List<Student> getStudentsByTmInstructor(@PathVariable("id") Long id){
-        return studentService.findByTmInstructor(id);
+    public ResponseEntity<?> getStudentsByTmInstructor(@PathVariable("id") Long id){
+        List<Student> students = studentService.findByTmInstructor(id);
+        return ResponseEntity.ok(students);
     }
 
     @GetMapping("/byCoach/{id}")
-    public List<Student> getStudentsByCoach(@PathVariable("id") Long id){
-        return studentService.findByCoachId(id);
+    public ResponseEntity<?> getStudentsByCoach(@PathVariable("id") Long id){
+        List<Student> students = studentService.findByCoachId(id);
+        return ResponseEntity.ok(students);
     }
 
     @GetMapping("/byjob/{id}")
-    public List<Student> getStudentsbyJobId(@PathVariable("id") Long id){
-        return studentService.findByJobId(id);
+    public ResponseEntity<?> getStudentsbyJobId(@PathVariable("id") Long id){
+        List<Student> students = studentService.findByCoachId(id);
+        return ResponseEntity.ok(students);
     }
 
     @PostMapping("/add")
-    public Student addStudent(@RequestBody final Student student){
-        return studentService.addStudent(student);
+    public ResponseEntity<?> addStudent(@Valid @RequestBody final Student student, BindingResult bindingResult){
+        if(bindingResult.hasErrors()) {
+            return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
+        }
+        studentService.addStudent(student);
+        return ResponseEntity.status(HttpStatus.OK).body("Student is created successfully");
     }
 
-    @PatchMapping("/update")
-    public Student updateStudent(@RequestBody final Student student){
-        return studentService.updateStudent(student);
+    @PutMapping("/update")
+    public ResponseEntity<?> updateStudent(@Valid @RequestBody final Student student, BindingResult bindingResult){
+        if(bindingResult.hasErrors()) {
+            return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
+        }
+        Student stu = studentService.updateStudent(student);
+        return ResponseEntity.status(HttpStatus.OK).body("Student is updated successfully");
     }
 
     @DeleteMapping("/delete/{id}")
-    public boolean deleteStudent(@PathVariable("id") Long id){
+    public ResponseEntity<?> deleteStudent(@PathVariable("id") Long id){
         Student student = studentService.findStudentById(id);
-        if(student == null) return false;
+        if(student == null) return ResponseEntity.badRequest().body("There is no student has an id equal to" + id);
         studentService.deleteStudent(id);
-        return true;
+        return ResponseEntity.status(HttpStatus.OK).body("Student is deleted successfully");
     }
-
 
 }

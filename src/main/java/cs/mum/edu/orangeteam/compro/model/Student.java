@@ -3,6 +3,10 @@ package cs.mum.edu.orangeteam.compro.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,12 +19,15 @@ public class Student {
     @Column(name = "student_id")
     private Long id;
 
+    @NotBlank(message = "Student must have name")
     @Column(name = "student_name")
     private String name;
 
     @Temporal(TemporalType.DATE)
     private Date enrollmentDate;
 
+    @Min(value = 0, message = "GPA cannot be lower than 0")
+    @Max(value = 4, message = "GPA cannot be higher than 4")
     private double GPA;
 
     @Embedded

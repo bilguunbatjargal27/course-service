@@ -8,6 +8,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -36,6 +38,8 @@ public class Course {
 
     private int tmAttendance;
 
+    @Min(value = 0, message = "Grade cannot be lower than 0")
+    @Max(value = 100, message = "Grade cannot be higher than 100")
     private double grade;
 
     @OneToMany(mappedBy = "course")
