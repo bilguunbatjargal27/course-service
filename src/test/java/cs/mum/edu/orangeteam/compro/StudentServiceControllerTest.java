@@ -37,6 +37,15 @@ public class StudentServiceControllerTest extends AbstractTest {
         Student[] productlist = super.mapFromJson(content, Student[].class);
         assertTrue(productlist.length > 0);
     }
+    @Test
+    public void getStudentById() throws Exception {
+        String uri = "/course/students/610000";
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
+    }
 
     @Test
     public void createProductSuccessfully() throws Exception {

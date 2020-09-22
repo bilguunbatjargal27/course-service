@@ -1,8 +1,6 @@
 package cs.mum.edu.orangeteam.compro.controller;
 
-import com.netflix.ribbon.proxy.annotation.Http;
 import cs.mum.edu.orangeteam.compro.model.Student;
-import cs.mum.edu.orangeteam.compro.service.CourseService;
 import cs.mum.edu.orangeteam.compro.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("course/students")
