@@ -1,6 +1,6 @@
 package cs.mum.edu.orangeteam.compro.service.impl;
 
-import cs.mum.edu.orangeteam.compro.DAO.AttendRepository;
+import cs.mum.edu.orangeteam.compro.repository.AttendRepository;
 import cs.mum.edu.orangeteam.compro.model.Attend;
 import cs.mum.edu.orangeteam.compro.service.AttendService;
 import org.springframework.beans.factory.annotation.Autowired;

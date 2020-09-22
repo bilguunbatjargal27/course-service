@@ -1,8 +1,6 @@
 package cs.mum.edu.orangeteam.compro.service.impl;
 
-import cs.mum.edu.orangeteam.compro.DAO.CourseRepository;
-import cs.mum.edu.orangeteam.compro.DAO.StudentRepository;
-import cs.mum.edu.orangeteam.compro.model.Course;
+import cs.mum.edu.orangeteam.compro.repository.StudentRepository;
 import cs.mum.edu.orangeteam.compro.model.Student;
 import cs.mum.edu.orangeteam.compro.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,5 +52,10 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<Student> findByJobId(Long id) {
         return studentRepository.findByJobId(id);
+    }
+
+    @Override
+    public List<Student> findByCoachId(Long id) {
+        return studentRepository.findByCoachId(id);
     }
 }

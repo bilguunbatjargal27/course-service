@@ -31,6 +31,11 @@ public class StudentController {
         return studentService.findByTmInstructor(id);
     }
 
+    @GetMapping("/byCoach/{id}")
+    public List<Student> getStudentsByCoach(@PathVariable("id") Long id){
+        return studentService.findByCoachId(id);
+    }
+
     @GetMapping("/byjob/{id}")
     public List<Student> getStudentsbyJobId(@PathVariable("id") Long id){
         return studentService.findByJobId(id);

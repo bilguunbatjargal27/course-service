@@ -1,5 +1,8 @@
 package cs.mum.edu.orangeteam.compro.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,7 +23,7 @@ public class Faculty {
 
     private String room;
 
-    @OneToMany(mappedBy = "faculty")
+    @OneToMany(mappedBy = "facultyId")
     private List<Course> teachingCourses = new ArrayList<>();
 
     @Embedded

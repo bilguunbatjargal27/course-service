@@ -1,9 +1,7 @@
 package cs.mum.edu.orangeteam.compro.service.impl;
 
-import cs.mum.edu.orangeteam.compro.DAO.CourseRepository;
-import cs.mum.edu.orangeteam.compro.DAO.StudentRepository;
+import cs.mum.edu.orangeteam.compro.repository.CourseRepository;
 import cs.mum.edu.orangeteam.compro.model.Course;
-import cs.mum.edu.orangeteam.compro.model.Student;
 import cs.mum.edu.orangeteam.compro.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

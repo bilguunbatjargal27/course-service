@@ -15,4 +15,6 @@ public interface StudentService {
     Collection<Student> findAll();
     List<Student> findByTmInstructor(Long id);
     List<Student> findByJobId(Long id);
+
+    List<Student> findByCoachId(Long id);
 }

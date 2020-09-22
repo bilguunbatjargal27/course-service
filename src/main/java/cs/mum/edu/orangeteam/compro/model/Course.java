@@ -2,9 +2,12 @@ package cs.mum.edu.orangeteam.compro.model;
 
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,7 +17,7 @@ import java.util.List;
 public class Course {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)//
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String title;
@@ -31,22 +34,53 @@ public class Course {
 
     private boolean isTA;
 
-    private int courseAttendance;
+    private int tmAttendance;
 
-    @Min(value = 0)
-    @Max(value = 100)
     private double grade;
 
-    @ManyToOne
-    @JoinColumn(name = "faculty_id")
-    private Faculty faculty;
-
     @OneToMany(mappedBy = "course")
+    @JsonIgnore
     private List<Attend> attends = new ArrayList<>();
 
     @ManyToOne
+    @JoinColumn(name = "faculty_id")
+    private Faculty facultyId;
+
+    @ManyToOne
     @JoinColumn(name = "student_id")
-    private Student student;
+    private Student studentId;
+
+    public int getTmAttendance() {
+        return tmAttendance;
+    }
+
+    public void setTmAttendance(int tmAttendance) {
+        this.tmAttendance = tmAttendance;
+    }
+
+    public double getGrade() {
+        return grade;
+    }
+
+    public void setGrade(double grade) {
+        this.grade = grade;
+    }
+
+    public Faculty getFacultyId() {
+        return facultyId;
+    }
+
+    public void setFacultyId(Faculty facultyId) {
+        this.facultyId = facultyId;
+    }
+
+    public Student getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(Student studentId) {
+        this.studentId = studentId;
+    }
 
     public Long getId() {
         return id;

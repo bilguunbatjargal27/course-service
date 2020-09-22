@@ -1,6 +1,6 @@
 package cs.mum.edu.orangeteam.compro.model;
 
-import org.springframework.beans.factory.annotation.Value;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -27,9 +27,11 @@ public class Student {
     private Address address;
 
     @OneToMany(mappedBy = "student")
+    @JsonIgnore
     private List<Attend> attends = new ArrayList<>();
 
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "studentId")
+    @JsonIgnore
     private List<Course> courses = new ArrayList<>();
 
     @Column(name = "tm_instructor")
@@ -39,7 +41,7 @@ public class Student {
 
     private Long jobId;
 
-
+    private Long coachId;
 
     public Student() {
     }
@@ -85,6 +87,46 @@ public class Student {
         this.address = address;
     }
 
+    public List<Attend> getAttends() {
+        return attends;
+    }
+
+    public void setAttends(List<Attend> attends) {
+        this.attends = attends;
+    }
+
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+    }
+
+    public Long getTmInstructor() {
+        return tmInstructor;
+    }
+
+    public void setTmInstructor(Long tmInstructor) {
+        this.tmInstructor = tmInstructor;
+    }
+
+    public boolean isCanJobSearch() {
+        return canJobSearch;
+    }
+
+    public void setCanJobSearch(boolean canJobSearch) {
+        this.canJobSearch = canJobSearch;
+    }
+
+    public Long getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(Long jobId) {
+        this.jobId = jobId;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
@@ -94,5 +136,13 @@ public class Student {
                 ", GPA=" + GPA +
                 ", address=" + address +
                 '}';
+    }
+
+    public Long getCoachId() {
+        return coachId;
+    }
+
+    public void setCoachId(Long coachId) {
+        this.coachId = coachId;
     }
 }
