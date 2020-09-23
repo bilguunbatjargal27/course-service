@@ -24,20 +24,12 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
-    @Autowired
-    private CourseService courseService;
-
     @GetMapping("")
     public ResponseEntity<?> getAllStundets(){
         List<Student> students = (List<Student>) studentService.findAll();
         return ResponseEntity.ok(students);
     }
 
-    @GetMapping("/allCourse")
-    public ResponseEntity<?> getAllCourses(){
-        List<Course> courses = (List<Course>) courseService.findAll();
-        return ResponseEntity.ok(courses);
-    }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getStudentById(@PathVariable("id") Long id){
@@ -93,20 +85,6 @@ public class StudentController {
         if(student == null) return ResponseEntity.badRequest().body("There is no student has an id equal to" + id);
         studentService.deleteStudent(id);
         return ResponseEntity.status(HttpStatus.OK).body("Student is deleted successfully");
-    }
-
-
-    @GetMapping("registercourse/{courseId}/{studentId}")
-    public ResponseEntity<?> registerCourse(@PathVariable("courseId") Long courseId, @PathVariable("studentId") Long studentId){
-        Course course = courseService.findCourseById(courseId);
-        Date newDate = DateUtils.addMonths(new Date(), 2);
-        if(course.getStartDate().compareTo(newDate) < 0){
-            Student student = studentService.findStudentById(studentId);
-            course.setStudentId(student);
-            courseService.updateCourse(course);
-            return ResponseEntity.ok("Student registered course");
-        }
-        return ResponseEntity.badRequest().body("Student cannot register course if course isn't 2 months ahead ");
     }
 
     // @TODO update CPT report if it is before the due date
