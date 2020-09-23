@@ -1,7 +1,10 @@
 package cs.mum.edu.orangeteam.compro.controller;
 
+import cs.mum.edu.orangeteam.compro.model.Course;
 import cs.mum.edu.orangeteam.compro.model.Student;
+import cs.mum.edu.orangeteam.compro.service.CourseService;
 import cs.mum.edu.orangeteam.compro.service.StudentService;
+import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -17,6 +21,9 @@ public class StudentController {
 
     @Autowired
     private StudentService studentService;
+
+    @Autowired
+    private CourseService courseService;
 
     @GetMapping("")
     public ResponseEntity<?> getAllStundets(){
@@ -74,4 +81,18 @@ public class StudentController {
         return ResponseEntity.status(HttpStatus.OK).body("Student is deleted successfully");
     }
 
+    @GetMapping("registercourse/{courseId}/{studentId}")
+    public ResponseEntity<?> registerCourse(@PathVariable("courseId") Long courseId, @PathVariable("studentId") Long studentId){
+        Course course = courseService.findCourseById(courseId);
+        Date newDate = DateUtils.addMonths(new Date(), 2);
+        if(course.getStartDate().compareTo(newDate) < 0){
+            Student student = studentService.findStudentById(studentId);
+            course.setStudentId(student);
+            courseService.updateCourse(course);
+            return ResponseEntity.ok("Student registered course");
+        }
+        return ResponseEntity.badRequest().body("Student cannot register course if course isn't 2 months ahead ");
+    }
+
+    // @TODO update CPT report if it is before the due date
 }
