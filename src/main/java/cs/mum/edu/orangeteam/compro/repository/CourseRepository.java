@@ -15,6 +15,7 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     public List<Course> findByFacultyIdAndStartDateAfter(Long id, Date now); // future
     public List<Course> findByFacultyIdAndEndDateBefore(Long id, Date now); // past
     public List<Course> findByFacultyId(Long id); // future and past
+    public Course findByIdAndEndDateBefore(Long id, Date now); // future and past
 
 
 // we have 1 use case front side for student - faculity front side

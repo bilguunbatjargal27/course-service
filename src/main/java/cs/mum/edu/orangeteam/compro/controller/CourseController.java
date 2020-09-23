@@ -1,11 +1,17 @@
 package cs.mum.edu.orangeteam.compro.controller;
 
 import cs.mum.edu.orangeteam.compro.model.Course;
+import cs.mum.edu.orangeteam.compro.model.Student;
 import cs.mum.edu.orangeteam.compro.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.xml.ws.Response;
 import java.util.Date;
 import java.util.List;
 
@@ -17,52 +23,70 @@ public class CourseController {
     private CourseService courseService;
 
     @GetMapping("")
-    public List<Course> getAllCourses(){
-        return (List<Course>) courseService.findAll();
+    public ResponseEntity<?> getAllCourses(){
+        List<Course> courses = (List<Course>) courseService.findAll();
+        return ResponseEntity.status(HttpStatus.OK).body(courses);
     }
 
     @GetMapping("/{id}")
-    public Course getCourseById(@PathVariable("id") Long id){
-        return courseService.findCourseById(id);
+    public ResponseEntity<?>  getCourseById(@PathVariable("id") Long id){
+        Course course = courseService.findCourseById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(course);
     }
 
     @PostMapping("/add")
-    public Course addCourse(@RequestBody final Course course){
-        return courseService.addCourse(course);
-
+    public ResponseEntity<?>  addCourse(@Valid @RequestBody final Course course, BindingResult bindingResult){
+        if(bindingResult.hasErrors()) {
+            return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
+        }
+        courseService.addCourse(course);
+        return ResponseEntity.status(HttpStatus.OK).body("Course is created successfully");
     }
 
     @PutMapping("/update")
-    public Course updateCourse(@RequestBody final Course course){
-        return courseService.updateCourse(course);
+    public ResponseEntity<?>  updateCourse(@Valid @RequestBody final Course course, BindingResult bindingResult){
+        if(bindingResult.hasErrors()) {
+            return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
+        }
+        courseService.updateCourse(course);
+        return ResponseEntity.status(HttpStatus.OK).body("Student is updated successfully");
+
     }
 
     @DeleteMapping("/delete/{id}")
-    public boolean deleteCourse(@PathVariable("id") Long id){
+    public ResponseEntity<?>  deleteCourse(@PathVariable("id") Long id){
         Course course = courseService.findCourseById(id);
-        if(course == null) return false;
+        if(course == null) return ResponseEntity.badRequest().body("There is no course has an id equal to" + id);
         courseService.deleteCourse(id);
-        return true;
+        return ResponseEntity.status(HttpStatus.OK).body("Course is deleted successfully");
     }
     @GetMapping("/faculty/{id}")
-    public List<Course>getAllCoursesByFacultyId(@PathVariable Long id ){
-    return courseService.findCoursesByFaculty(id);
+    public ResponseEntity<?>  getAllCoursesByFacultyId(@PathVariable Long id ){
+        List<Course> courses = courseService.findCoursesByFaculty(id);
+        return ResponseEntity.status(HttpStatus.OK).body(courses);
     }
     @GetMapping("/student/{id}")    
-    public List<Course>getAllCoursesByStudent(@PathVariable Long id ){
-        return courseService.findByStudent(id);
+    public ResponseEntity<?> getAllCoursesByStudent(@PathVariable Long id ){
+        List<Course> courses = courseService.findByStudent(id);
+        return ResponseEntity.status(HttpStatus.OK).body(courses);
     }
     @GetMapping("/student/taken/{id}/{date}")
-    public List<Course>getCoursesTakenByStudent(@PathVariable Long id ,@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date date){
-        return courseService.findCoursesAlreadyTakenWithStudent(id, date);
+    public ResponseEntity<?> getCoursesTakenByStudent(@PathVariable Long id ,@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date date){
+        List<Course> courses = courseService.findCoursesAlreadyTakenWithStudent(id, date);
+        return ResponseEntity.status(HttpStatus.OK).body(courses);
     }
-    @GetMapping("/faculty/teach/{id}/{date}")
-    public List<Course>getCoursesFacultyWillTeach(@PathVariable Long id ,@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date date){
-        return courseService.findCoursesFacultyWillTeach(id, date);
+    @GetMapping("/faculty/teach/{id}/{date}") // future
+    public ResponseEntity<?> getCoursesFacultyWillTeach(@PathVariable Long id ,@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date date){
+        List<Course> courses = courseService.findCoursesFacultyWillTeach(id, date);
+        return ResponseEntity.status(HttpStatus.OK).body(courses);
     }
-    @GetMapping("/faculty/taught/{id}/{date}")
-    public List<Course>getCoursesFacultyTaught(@PathVariable Long id ,@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date date){
-        return courseService.findCoursesWithFacultyTaught(id, date);
+
+    @GetMapping("/faculty/taught/{id}/{date}") // past
+    public ResponseEntity<?> getCoursesFacultyTaught(@PathVariable Long id ,@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date date){
+        List<Course> courses = courseService.findCoursesWithFacultyTaught(id, date);
+        return ResponseEntity.status(HttpStatus.OK).body(courses);
     }
+
+
 
 }

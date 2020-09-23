@@ -31,6 +31,12 @@ public class StudentController {
         return ResponseEntity.ok(students);
     }
 
+    @GetMapping("/allCourse")
+    public ResponseEntity<?> getAllCourses(){
+        List<Course> courses = (List<Course>) courseService.findAll();
+        return ResponseEntity.ok(courses);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getStudentById(@PathVariable("id") Long id){
         Student student = studentService.findStudentById(id);
@@ -80,6 +86,7 @@ public class StudentController {
         studentService.deleteStudent(id);
         return ResponseEntity.status(HttpStatus.OK).body("Student is deleted successfully");
     }
+
 
     @GetMapping("registercourse/{courseId}/{studentId}")
     public ResponseEntity<?> registerCourse(@PathVariable("courseId") Long courseId, @PathVariable("studentId") Long studentId){

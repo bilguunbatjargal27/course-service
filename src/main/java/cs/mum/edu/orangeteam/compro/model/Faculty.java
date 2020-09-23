@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +17,7 @@ public class Faculty {
     @GeneratedValue(strategy = GenerationType.IDENTITY)//
     private Long id;
 
+    @NotBlank(message = "Faculty must have name")
     private String name;
 
     @Temporal(TemporalType.DATE)

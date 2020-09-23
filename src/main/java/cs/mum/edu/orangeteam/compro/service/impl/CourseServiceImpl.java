@@ -69,4 +69,10 @@ public class CourseServiceImpl implements CourseService {
         return repository.findByFacultyId(id);
     }
 
+    @Override
+    public Course findCourseByIdInThePast(Long id, Date now) {
+        return repository.findByIdAndEndDateBefore(id, now);
+    }
+
+
 }

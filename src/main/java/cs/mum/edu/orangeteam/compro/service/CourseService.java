@@ -19,5 +19,6 @@ public interface CourseService {
     public List<Course> findCoursesFacultyWillTeach(Long id, Date now); // future
     public List<Course> findCoursesWithFacultyTaught(Long id, Date now); // past
     public List<Course> findCoursesByFaculty(Long id); // future and past
+    public Course findCourseByIdInThePast(Long id, Date now); // future and past
 
 }
