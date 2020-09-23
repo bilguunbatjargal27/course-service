@@ -34,8 +34,8 @@ public class StudentServiceControllerTest extends AbstractTest {
         int status = mvcResult.getResponse().getStatus();
         assertEquals(200, status);
         String content = mvcResult.getResponse().getContentAsString();
-        Student[] productlist = super.mapFromJson(content, Student[].class);
-        assertTrue(productlist.length > 0);
+        Student[] studentlist = super.mapFromJson(content, Student[].class);
+        assertTrue(studentlist.length > 0);
     }
     @Test
     public void getStudentById() throws Exception {
@@ -48,7 +48,7 @@ public class StudentServiceControllerTest extends AbstractTest {
     }
 
     @Test
-    public void createProductSuccessfully() throws Exception {
+    public void createStudentSuccessfully() throws Exception {
         String uri = "/course/students/add";
         Student student = new Student();
         Address address = new Address();
@@ -69,13 +69,10 @@ public class StudentServiceControllerTest extends AbstractTest {
 
         int status = mvcResult.getResponse().getStatus();
         assertEquals(200, status);
-        String content = mvcResult.getResponse().getContentAsString();
-        System.out.println(content);
-        assertEquals(content, "Student is created successfully");
     }
 
     @Test
-    public void createProductFailure() throws Exception {
+    public void createStudentFailure() throws Exception {
         String uri = "/course/students/add";
         Student student = new Student();
         Address address = new Address();
@@ -99,7 +96,7 @@ public class StudentServiceControllerTest extends AbstractTest {
     }
 
     @Test
-    public void updateProductSuccessfully() throws Exception {
+    public void updateStudentSuccessfully() throws Exception {
         String uri = "/course/students/update";
         Student student = new Student();
         Address address = new Address();
@@ -120,10 +117,12 @@ public class StudentServiceControllerTest extends AbstractTest {
         int status = mvcResult.getResponse().getStatus();
         assertEquals(200, status);
         String content = mvcResult.getResponse().getContentAsString();
-        assertEquals(content, "Student is updated successfully");
+        Student jsonStudent = super.mapFromJson(content, Student.class);
+
+        assertEquals(jsonStudent.getName(), "Name") ;
     }
    @Test
-    public void updateProductFailure() throws Exception {
+    public void updateStudentFailure() throws Exception {
         String uri = "/course/students/update";
         Student student = new Student();
         Address address = new Address();
@@ -146,13 +145,11 @@ public class StudentServiceControllerTest extends AbstractTest {
     }
 
     @Test
-    public void deleteProduct() throws Exception {
-        String uri = "/course/students/delete/610000";
+    public void deleteStudent() throws Exception {
+        String uri = "/course/students/delete/1";
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete(uri)).andReturn();
         int status = mvcResult.getResponse().getStatus();
         assertEquals(200, status);
-        String content = mvcResult.getResponse().getContentAsString();
-        assertEquals(content, "Student is deleted successfully");
     }
 
     @Test
@@ -164,8 +161,8 @@ public class StudentServiceControllerTest extends AbstractTest {
         int status = mvcResult.getResponse().getStatus();
         assertEquals(200, status);
         String content = mvcResult.getResponse().getContentAsString();
-        Student[] productlist = super.mapFromJson(content, Student[].class);
-        assertTrue(productlist.length > 0);
+        Student[] studentlist = super.mapFromJson(content, Student[].class);
+        assertTrue(studentlist.length > 0);
     }
     @Test
     public void getStudentsListByCoachId() throws Exception {
@@ -176,8 +173,8 @@ public class StudentServiceControllerTest extends AbstractTest {
         int status = mvcResult.getResponse().getStatus();
         assertEquals(200, status);
         String content = mvcResult.getResponse().getContentAsString();
-        Student[] productlist = super.mapFromJson(content, Student[].class);
-        assertTrue(productlist.length > 0);
+        Student[] studentlist = super.mapFromJson(content, Student[].class);
+        assertTrue(studentlist.length > 0);
     }
     @Test
     public void getStudentsListByJobId() throws Exception {
@@ -188,8 +185,8 @@ public class StudentServiceControllerTest extends AbstractTest {
         int status = mvcResult.getResponse().getStatus();
         assertEquals(200, status);
         String content = mvcResult.getResponse().getContentAsString();
-        Student[] productlist = super.mapFromJson(content, Student[].class);
-        assertTrue(productlist.length > 0);
+        Student[] studentlist = super.mapFromJson(content, Student[].class);
+        assertTrue(studentlist.length > 0);
     }
 
 
