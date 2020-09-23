@@ -1,8 +1,9 @@
-package cs.mum.edu.orangeteam.compro;
+package cs.mum.edu.orangeteam.compro.controller;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import cs.mum.edu.orangeteam.compro.AbstractTest;
 import cs.mum.edu.orangeteam.compro.model.Address;
 import cs.mum.edu.orangeteam.compro.model.Student;
 import org.junit.Before;
