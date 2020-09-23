@@ -7,6 +7,7 @@ import cs.mum.edu.orangeteam.compro.service.StudentService;
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("course/students")
+@CrossOrigin(origins = "*") //this line
 public class StudentController {
 
     @Autowired
@@ -42,6 +44,12 @@ public class StudentController {
         Student student = studentService.findStudentById(id);
         return ResponseEntity.ok(student);
     }
+    @GetMapping("noticeCpt/{id}")
+    public ResponseEntity<?> noticeCptReport(@PathVariable("id") Long id){
+        Student student = studentService.findStudentById(id);
+        System.out.println(student.getName() + " please fill your CPT report");
+        return ResponseEntity.ok().body("student got notice");
+    }
 
     @GetMapping("/bytminstructor/{id}")
     public ResponseEntity<?> getStudentsByTmInstructor(@PathVariable("id") Long id){
@@ -61,13 +69,13 @@ public class StudentController {
         return ResponseEntity.ok(students);
     }
 
-    @PostMapping("/add")
+    @PostMapping(value = "/add")
     public ResponseEntity<?> addStudent(@Valid @RequestBody final Student student, BindingResult bindingResult){
         if(bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
         }
-        studentService.addStudent(student);
-        return ResponseEntity.status(HttpStatus.OK).body("Student is created successfully");
+        Student student1 = studentService.addStudent(student);
+        return ResponseEntity.status(HttpStatus.OK).body(student1);
     }
 
     @PutMapping("/update")
@@ -76,7 +84,7 @@ public class StudentController {
             return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
         }
         Student stu = studentService.updateStudent(student);
-        return ResponseEntity.status(HttpStatus.OK).body("Student is updated successfully");
+        return ResponseEntity.status(HttpStatus.OK).body(stu);
     }
 
     @DeleteMapping("/delete/{id}")
